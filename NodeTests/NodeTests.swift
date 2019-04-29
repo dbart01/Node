@@ -25,6 +25,21 @@ class NodeTests: XCTestCase {
         }
     }
     
+    // MARK: - Wait -
+    
+    func testSynchronousWait() {
+        let n1 = Node<Void, String, TestError> { _, completion in
+            DispatchQueue.global().async {
+                // Simulate long-running computation
+                sleep(1)
+                completion(.success("123"))
+            }
+        }
+        
+        let result = n1.invokeAndWait()
+        XCTAssertEqual(result, .success("123"))
+    }
+    
     // MARK: - AND (N + N) -
 
     func testANDComposingMismatchedTypesSuccess() {

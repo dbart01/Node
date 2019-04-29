@@ -25,6 +25,21 @@ class TransformTests: XCTestCase {
         }
     }
     
+    // MARK: - Wait -
+    
+    func testSynchronousWait() {
+        let t1 = Transform<Void, String> { _, completion in
+            DispatchQueue.global().async {
+                // Simulate long-running computation
+                sleep(1)
+                completion("123")
+            }
+        }
+        
+        let result = t1.invokeAndWait()
+        XCTAssertEqual(result, "123")
+    }
+    
     // MARK: - AND (T + T) -
     
     func testANDComposingTransformations() {

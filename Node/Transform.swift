@@ -21,10 +21,27 @@ struct Transform<X, Y> {
     func invoke(with input: X, completion: @escaping ScalarCallback<Y>) {
         self.block(input, completion)
     }
+    
+    func invokeAndWait(with input: X) -> Y {
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        var output: Y!
+        self.invoke(with: input) { result in
+            output = result
+            semaphore.signal()
+        }
+        
+        semaphore.wait()
+        return output
+    }
 }
 
 extension Transform where X == Void {
     func invoke(completion: @escaping ScalarCallback<Y>) {
         self.invoke(with: (), completion: completion)
+    }
+    
+    func invokeAndWait() -> Y {
+        return self.invokeAndWait(with: ())
     }
 }
