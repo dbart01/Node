@@ -25,7 +25,30 @@ class NodeTests: XCTestCase {
         }
     }
     
-    // MARK: - Wait -
+    // MARK: - Convenience Extensions -
+    
+    func testInvokeInputVoid() {
+        let n1 = Node<Void, String, TestError> { _, completion in
+            completion(.success("dogs"))
+        }
+        
+        n1.invoke { result in
+            XCTAssertEqual(result, .success("dogs"))
+        }
+    }
+    
+    func testInvokeInputOutputVoid() {
+        let e1 = expectation(description: "e1")
+        
+        let n1 = Node<Void, Void, TestError> { _, completion in
+            completion(.success(()))
+            e1.fulfill()
+        }
+        
+        n1.invoke()
+        
+        wait(for: [e1], timeout: 1.0)
+    }
     
     func testSynchronousWait() {
         let n1 = Node<Void, String, TestError> { _, completion in

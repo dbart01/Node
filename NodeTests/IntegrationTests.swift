@@ -13,7 +13,7 @@ class IntegrationTests: XCTestCase {
     
     // MARK: - Integration -
     
-    func testIntegration() {
+    func testFetchAndCacheFlow() {
         
         let url = URL(string: "https://date.nager.at/api/v2/PublicHolidays/2019/CA")!
         
@@ -107,6 +107,33 @@ class IntegrationTests: XCTestCase {
         }
         
         wait(for: [e2], timeout: 10.0)
+    }
+    
+    func testSequencedUnrelatedOperations() {
+        
+        let e1 = expectation(description: "e1")
+        let e2 = expectation(description: "e2")
+        let e3 = expectation(description: "e3")
+        
+        let n1 = Node<Void, Void, TestError> { _, completion in
+            completion(.success(()))
+            e1.fulfill()
+        }
+        
+        let n2 = Node<Void, Void, TestError> { _, completion in
+            completion(.success(()))
+            e2.fulfill()
+        }
+        
+        let n3 = Node<Void, Void, TestError> { _, completion in
+            completion(.success(()))
+            e3.fulfill()
+        }
+        
+        let pipeline = n1 & n2 & n3
+        pipeline.invoke()
+        
+        wait(for: [e1, e2, e3], timeout: 1.0)
     }
     
     // MARK: - Performance -

@@ -25,7 +25,30 @@ class TransformTests: XCTestCase {
         }
     }
     
-    // MARK: - Wait -
+    // MARK: - Convenience Extensions -
+    
+    func testInvokeInputVoid() {
+        let t1 = Transform<Void, String> { _, completion in
+            completion("dogs")
+        }
+        
+        t1.invoke { result in
+            XCTAssertEqual(result, "dogs")
+        }
+    }
+    
+    func testInvokeInputOutputVoid() {
+        let e1 = expectation(description: "e1")
+        
+        let t1 = Transform<Void, Void> { _, completion in
+            completion(())
+            e1.fulfill()
+        }
+        
+        t1.invoke()
+        
+        wait(for: [e1], timeout: 1.0)
+    }
     
     func testSynchronousWait() {
         let t1 = Transform<Void, String> { _, completion in

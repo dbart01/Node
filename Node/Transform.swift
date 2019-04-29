@@ -45,3 +45,9 @@ extension Transform where X == Void {
         return self.invokeAndWait(with: ())
     }
 }
+
+extension Transform where X == Void, Y == Void {
+    func invoke() {
+        self.invoke { _ in }
+    }
+}

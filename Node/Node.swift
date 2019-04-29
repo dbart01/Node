@@ -45,3 +45,9 @@ extension Node where X == Void {
         return self.invokeAndWait(with: ())
     }
 }
+
+extension Node where X == Void, Y == Void {
+    func invoke() {
+        self.invoke { _ in }
+    }
+}
