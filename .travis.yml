@@ -1,0 +1,13 @@
+language: swift
+osx_image: xcode10.2
+  
+
+script: set -o pipefail
+
+jobs:
+  include:
+    - script: "./Scripts/test"
+      name: "Test Node"
+      
+after_success:
+- bash <(curl -s https://codecov.io/bash)
