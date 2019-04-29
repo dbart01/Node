@@ -10,25 +10,173 @@ import XCTest
 @testable import Node
 
 class NodeTests: XCTestCase {
-
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    
+    // MARK: - Init -
+    
+    func testInit() {
+        let block: (Int, (Result<Int, TestError>) -> Void) -> Void = { x, completion in
+            completion(.success(x))
+        }
+        
+        let node = Node(block)
+        
+        node.invoke(with: 3) { result in
+            XCTAssertEqual(result, .success(3))
         }
     }
+    
+    // MARK: - AND (N + N) -
 
+    func testANDComposingMismatchedTypesSuccess() {
+        let n1 = Node<Void, Int, TestError> { _, completion in
+            completion(.success(3))
+        }
+        
+        let n2 = Node<Int, String, TestError> { input, completion in
+            completion(.success(String(input)))
+        }
+        
+        let n3 = n1 & n2
+        
+        n3.invoke { result in
+            XCTAssertEqual(result, .success("3"))
+        }
+    }
+    
+    func testANDComposingSameTypesSuccess() {
+        let n1 = Node<Int, Int, TestError> { input, completion in
+            completion(.success(input + 5))
+        }
+        
+        let n2 = Node<Int, Int, TestError> { input, completion in
+            completion(.success(input * 2))
+        }
+        
+        let n3 = n1 & n2
+        
+        n3.invoke(with: 5) { result in
+            XCTAssertEqual(result, .success(20))
+        }
+    }
+    
+    func testANDComposingMismatchedTypesFailure() {
+        let n1 = Node<Void, Int, TestError> { _, completion in
+            completion(.failure(.generic))
+        }
+        
+        let n2 = Node<Int, String, TestError> { input, completion in
+            XCTFail()
+            completion(.success(String(input)))
+        }
+        
+        let n3 = n1 & n2
+        
+        n3.invoke { result in
+            XCTAssertEqual(result, .failure(.generic))
+        }
+    }
+    
+    // MARK: - AND (N + T) -
+    
+    func testANDComposingTransformationSuccess() {
+        let n1 = Node<Void, Int, TestError> { _, completion in
+            completion(.success(3))
+        }
+        
+        let t1 = Transform<Int, String> { y, completion in
+            completion(String(y))
+        }
+        
+        let n2 = n1 & t1
+        
+        n2.invoke { result in
+            XCTAssertEqual(result, .success("3"))
+        }
+    }
+    
+    func testANDComposingTransformationFailure() {
+        let n1 = Node<Void, Int, TestError> { _, completion in
+            completion(.failure(.generic))
+        }
+        
+        let t1 = Transform<Int, String> { y, completion in
+            XCTFail()
+            completion(String(y))
+        }
+        
+        let n2 = n1 & t1
+        
+        n2.invoke { result in
+            XCTAssertEqual(result, .failure(.generic))
+        }
+    }
+    
+    // MARK: - OR (N + N) -
+    
+    func testORCompositionFirstSuccess() {
+        let n1 = Node<Int, Int, TestError> { input, completion in
+            completion(.success(input + 5))
+        }
+        
+        let n2 = Node<Int, Int, TestError> { input, completion in
+            XCTFail()
+            completion(.success(input * 2))
+        }
+        
+        let n3 = n1 | n2
+        
+        n3.invoke(with: 2) { result in
+            XCTAssertEqual(result, .success(7))
+        }
+    }
+    
+    func testORCompositionSecondSuccess() {
+        let n1 = Node<Int, Int, TestError> { input, completion in
+            completion(.failure(.generic))
+        }
+        
+        let n2 = Node<Int, Int, TestError> { input, completion in
+            completion(.success(input * 2))
+        }
+        
+        let n3 = n1 | n2
+        
+        n3.invoke(with: 2) { result in
+            XCTAssertEqual(result, .success(4))
+        }
+    }
+    
+    // MARK: - OR (N + T) -
+    
+    func testORComposingTransformationSuccess() {
+        let n1 = Node<Int, Int, TestError> { x, completion in
+            completion(.success(x + 5))
+        }
+        
+        let t1 = Transform<Int, Int> { y, completion in
+            completion(y * 2)
+        }
+        
+        let n2 = n1 | t1
+        
+        n2.invoke(with: 2) { result in
+            XCTAssertEqual(result, .success(7))
+        }
+    }
+    
+    func testORComposingTransformationFailure() {
+        let n1 = Node<Int, Int, TestError> { x, completion in
+            completion(.failure(.generic))
+        }
+        
+        let t1 = Transform<Int, Int> { y, completion in
+            completion(y * 2)
+        }
+        
+        let n2 = n1 | t1
+        
+        n2.invoke(with: 2) { result in
+            XCTAssertEqual(result, .success(4))
+        }
+    }
 }

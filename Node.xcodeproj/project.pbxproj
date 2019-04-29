@@ -10,6 +10,13 @@
 		9A2490C8226FA29B003CAEFB /* Node.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A2490BE226FA29B003CAEFB /* Node.framework */; };
 		9A2490CD226FA29B003CAEFB /* NodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2490CC226FA29B003CAEFB /* NodeTests.swift */; };
 		9A2490CF226FA29B003CAEFB /* Node.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A2490C1226FA29B003CAEFB /* Node.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9A2490D9226FA2B6003CAEFB /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2490D8226FA2B6003CAEFB /* Node.swift */; };
+		9A2490DB22707DAD003CAEFB /* Node+Composition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2490DA22707DAD003CAEFB /* Node+Composition.swift */; };
+		9A2491282270DFE6003CAEFB /* Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2491272270DFE6003CAEFB /* Transform.swift */; };
+		9A24912A2270E98E003CAEFB /* Transform+Composition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2491292270E98D003CAEFB /* Transform+Composition.swift */; };
+		9A24912C2270F2D8003CAEFB /* TransformTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A24912B2270F2D8003CAEFB /* TransformTests.swift */; };
+		9A24912E2270F685003CAEFB /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A24912D2270F685003CAEFB /* TestError.swift */; };
+		9A2491302270FE88003CAEFB /* IntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A24912F2270FE88003CAEFB /* IntegrationTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +36,13 @@
 		9A2490C7226FA29B003CAEFB /* NodeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NodeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A2490CC226FA29B003CAEFB /* NodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeTests.swift; sourceTree = "<group>"; };
 		9A2490CE226FA29B003CAEFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9A2490D8226FA2B6003CAEFB /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
+		9A2490DA22707DAD003CAEFB /* Node+Composition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Node+Composition.swift"; sourceTree = "<group>"; };
+		9A2491272270DFE6003CAEFB /* Transform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transform.swift; sourceTree = "<group>"; };
+		9A2491292270E98D003CAEFB /* Transform+Composition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Transform+Composition.swift"; sourceTree = "<group>"; };
+		9A24912B2270F2D8003CAEFB /* TransformTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformTests.swift; sourceTree = "<group>"; };
+		9A24912D2270F685003CAEFB /* TestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestError.swift; sourceTree = "<group>"; };
+		9A24912F2270FE88003CAEFB /* IntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +86,10 @@
 			isa = PBXGroup;
 			children = (
 				9A2490C1226FA29B003CAEFB /* Node.h */,
+				9A2490D8226FA2B6003CAEFB /* Node.swift */,
+				9A2490DA22707DAD003CAEFB /* Node+Composition.swift */,
+				9A2491272270DFE6003CAEFB /* Transform.swift */,
+				9A2491292270E98D003CAEFB /* Transform+Composition.swift */,
 				9A2490C2226FA29B003CAEFB /* Info.plist */,
 			);
 			path = Node;
@@ -80,7 +98,10 @@
 		9A2490CB226FA29B003CAEFB /* NodeTests */ = {
 			isa = PBXGroup;
 			children = (
+				9A24912D2270F685003CAEFB /* TestError.swift */,
 				9A2490CC226FA29B003CAEFB /* NodeTests.swift */,
+				9A24912B2270F2D8003CAEFB /* TransformTests.swift */,
+				9A24912F2270FE88003CAEFB /* IntegrationTests.swift */,
 				9A2490CE226FA29B003CAEFB /* Info.plist */,
 			);
 			path = NodeTests;
@@ -148,6 +169,7 @@
 				TargetAttributes = {
 					9A2490BD226FA29B003CAEFB = {
 						CreatedOnToolsVersion = 10.2;
+						LastSwiftMigration = 1020;
 					};
 					9A2490C6226FA29B003CAEFB = {
 						CreatedOnToolsVersion = 10.2;
@@ -194,6 +216,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A2490DB22707DAD003CAEFB /* Node+Composition.swift in Sources */,
+				9A24912A2270E98E003CAEFB /* Transform+Composition.swift in Sources */,
+				9A2491282270DFE6003CAEFB /* Transform.swift in Sources */,
+				9A2490D9226FA2B6003CAEFB /* Node.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,6 +227,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A2491302270FE88003CAEFB /* IntegrationTests.swift in Sources */,
+				9A24912E2270F685003CAEFB /* TestError.swift in Sources */,
+				9A24912C2270F2D8003CAEFB /* TransformTests.swift in Sources */,
 				9A2490CD226FA29B003CAEFB /* NodeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -341,6 +370,7 @@
 		9A2490D3226FA29B003CAEFB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -358,6 +388,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.dimabart.Node;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -366,6 +397,7 @@
 		9A2490D4226FA29B003CAEFB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -391,6 +423,7 @@
 		9A2490D6226FA29B003CAEFB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MK88G5Q6ZN;
 				INFOPLIST_FILE = NodeTests/Info.plist;
@@ -401,6 +434,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dimabart.NodeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -409,6 +443,7 @@
 		9A2490D7226FA29B003CAEFB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MK88G5Q6ZN;
 				INFOPLIST_FILE = NodeTests/Info.plist;
