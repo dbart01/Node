@@ -50,6 +50,19 @@ class TransformTests: XCTestCase {
         wait(for: [e1], timeout: 1.0)
     }
     
+    func testInvokeOutputVoid() {
+        let e1 = expectation(description: "e1")
+        
+        let t1 = Transform<String, Void> { _, completion in
+            completion(())
+            e1.fulfill()
+        }
+        
+        t1.invoke(with: "something")
+        
+        wait(for: [e1], timeout: 1.0)
+    }
+    
     func testSynchronousWait() {
         let t1 = Transform<Void, String> { _, completion in
             DispatchQueue.global().async {

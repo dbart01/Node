@@ -139,7 +139,7 @@ class IntegrationTests: XCTestCase {
     // MARK: - Performance -
     
     func testAgressiveComposition() {
-        let incremenet = Node<Int, Int, Error> { input, completion in
+        let incremenet = Node<Int, Int, TestError> { input, completion in
             completion(.success(input + 1))
         }
         
@@ -149,7 +149,7 @@ class IntegrationTests: XCTestCase {
         }
         
         pipeline.invoke(with: 1) { result in
-            print("Result: \(result)")
+            XCTAssertEqual(result, .success(1002))
         }
     }
 }
